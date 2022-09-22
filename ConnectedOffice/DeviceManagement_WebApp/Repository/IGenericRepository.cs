@@ -6,18 +6,28 @@ using System;
 
 namespace DeviceManagement_WebApp.Repositories
 {
-    public interface IGenericRepository
+    public interface IGenericRepository<T> where T : class
     {
-        public interface IGenericRepository<T> where T : class
-        {
-            T GetById(int id);
-            IEnumerable<T> GetAll();
-            IEnumerable<T> Find(Expression<Func<T, bool>> expression);
-            void Add(T entity);
-            void AddRange(IEnumerable<T> entities);
-            void Remove(T entity);
-            void RemoveRange(IEnumerable<T> entities);
-        }
 
+        //Get’s the entity By Id.
+        T GetById(int id);
+
+        // Get’s all the Record.
+        IEnumerable<T> GetAll();
+
+        //Finds a set of record that matches the passed expression.
+        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+
+        //Adds a new record to the context
+        void Add(T entity);
+
+        //Add a list of records
+        void AddRange(IEnumerable<T> entities);
+
+        //Removes a record from the context
+        void Remove(T entity);
+
+        //Removes a list of records.
+        void RemoveRange(IEnumerable<T> entities);
     }
 }

@@ -1,12 +1,13 @@
 ﻿//Marcel Joubert - 35376759//
 
 using DeviceManagement_WebApp.Models;
-using static DeviceManagement_WebApp.Repositories.IGenericRepository;
+using DeviceManagement_WebApp.Repositories;
+
 
 namespace DeviceManagement_WebApp.Repository
 {
-    public interface IDeviceRepository : IGenericRepository<Device>
+    public interface IDeviceRepository : IDeviceRepository<Device>
     {
-        Device GetMostRecentDevice();
+        Device GetAll();
     }
 }

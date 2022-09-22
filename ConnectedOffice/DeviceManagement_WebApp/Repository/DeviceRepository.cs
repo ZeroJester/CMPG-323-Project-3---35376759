@@ -14,7 +14,7 @@ using DeviceManagement_WebApp.Repositories;
 
 namespace DeviceManagement_WebApp.Repository
 {
-    public class DeviceRepository : GenericRepository<Device>, IGenericRepository
+    public class DeviceRepository : GenericRepository<Device>, IDeviceRepository
     {
         public DeviceRepository(ConnectedOfficeContext context) : base(context)
         {

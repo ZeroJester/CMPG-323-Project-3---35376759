@@ -1,12 +1,13 @@
 ﻿//Marcel Joubert - 35376759//
 
 using DeviceManagement_WebApp.Models;
-using static DeviceManagement_WebApp.Repositories.IGenericRepository;
+using DeviceManagement_WebApp.Repositories;
+
 
 namespace DeviceManagement_WebApp.Repositories
 {
-    public interface ICategoryRepository : IGenericRepository<Category>
+    public interface ICategoryRepository : IDeviceRepository<Category>
     {
-       
+        Category GetAll();
     }
 }

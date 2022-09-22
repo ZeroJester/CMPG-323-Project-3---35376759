@@ -1,6 +1,6 @@
 ﻿//Marcel Joubert - 35376759
 
-using static DeviceManagement_WebApp.Repositories.IGenericRepository;
+using static DeviceManagement_WebApp.Repositories.ZoneRepository;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
