@@ -1,6 +1,7 @@
 ﻿using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -24,6 +25,26 @@ namespace DeviceManagement_WebApp.Repository
         public Zone GetZone()
         {
             return _context.Zone.ToList().FirstOrDefault();
+        }
+
+
+
+        // GET: Zones/Details/5
+        public async Task<IActionResult> Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var zone = await _context.Zone
+                .FirstOrDefaultAsync(m => m.ZoneId == id);
+            if (zone == null)
+            {
+                return NotFound();
+            }
+
+            return View(zone);
         }
     }
 

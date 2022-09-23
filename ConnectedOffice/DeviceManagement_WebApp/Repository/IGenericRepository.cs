@@ -2,12 +2,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace DeviceManagement_WebApp.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
+
+        Task<IEnumerable<T>> All();
+        Task<T> GetById(Guid id);
+        Task<bool> Add(T entity);
+        Task<bool> Delete(Guid id);
+        Task<bool> Upsert(T entity);
+
         
+        
+        
+        
+        
+        
+        /*
         //Get’s the entity By Id.
         T GetById(int id);
 
@@ -27,7 +41,7 @@ namespace DeviceManagement_WebApp.Repository
         void Remove(T entity);
 
         //Removes a list of records.
-        void RemoveRange(IEnumerable<T> entities);
+        void RemoveRange(IEnumerable<T> entities);*/
     }
 
 }
