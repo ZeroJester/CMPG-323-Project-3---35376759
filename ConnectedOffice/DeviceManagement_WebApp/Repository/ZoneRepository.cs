@@ -21,6 +21,10 @@ namespace DeviceManagement_WebApp.Repository
             return _context.Zone.OrderByDescending(zone => zone.DateCreated).FirstOrDefault();
         }
 
+        public Zone GetZone()
+        {
+            return _context.Zone.ToList().FirstOrDefault();
+        }
     }
 
 

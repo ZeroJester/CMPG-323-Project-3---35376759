@@ -9,6 +9,8 @@ namespace DeviceManagement_WebApp.Repository
     {
         Zone GetMostRecentZone();
 
+        Zone GetZone();
+
     }
 
 }

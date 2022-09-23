@@ -28,21 +28,17 @@ namespace DeviceManagement_WebApp.Controllers
             return _context.Set<T>().ToList();
         }*/
 
+
         //Inherited GET method to retrieve all zones//
-        [HttpGet]
-        [Route("Zones/Index")]
         public async Task<IActionResult> Index()
         {
             return View(_zoneRepository.GetAll());
         }
 
-        [HttpPost]
-        [Route("Zones/Create")]
-        public  Task<IActionResult> Create(Zone zone)
+        //Inherited GET method to retrieve zones by id//
+        public async Task<IActionResult> GetMostRecent()
         {
-            _zoneRepository.Add(zone);
-            return NoContent();
+            return View(_zoneRepository.GetMostRecentZone());
         }
-
     }
 }

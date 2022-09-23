@@ -11,7 +11,7 @@ using DeviceManagement_WebApp.Models;
 namespace DeviceManagement_WebApp.Controllers
 {
 
-    [Route("[controller]")]
+    //[Route("[controller]")]
     public class DevicesController : Controller
     {
         private readonly ConnectedOfficeContext _context;
