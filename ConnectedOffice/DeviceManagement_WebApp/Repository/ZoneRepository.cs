@@ -1,5 +1,6 @@
 ﻿using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -18,12 +19,6 @@ namespace DeviceManagement_WebApp.Repository
         public Zone GetMostRecentZone()
         {
             return _context.Zone.OrderByDescending(zone => zone.DateCreated).FirstOrDefault();
-        }
-
-
-        public Zone GetById(int id)
-        {
-            return _context.Zone.Find(id);
         }
 
     }
