@@ -1,17 +1,62 @@
 ﻿using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.IRepository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace DeviceManagement_WebApp.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly ConnectedOfficeContext _context;
-        public GenericRepository(ConnectedOfficeContext context)
+        
+        protected DbSet<T> _dbSet;
+
+        protected readonly ILogger _logger;
+
+        public GenericRepository(
+            ConnectedOfficeContext context, 
+            ILogger logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
+
+        public Task<IEnumerable<T>> All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T> GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Add(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Upsert(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+        /*public GenericRepository(ConnectedOfficeContext context)
         {
             _context = context;
         }
@@ -42,6 +87,6 @@ namespace DeviceManagement_WebApp.Repository
         public void RemoveRange(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
-        }
+        }*/
     }
 }
