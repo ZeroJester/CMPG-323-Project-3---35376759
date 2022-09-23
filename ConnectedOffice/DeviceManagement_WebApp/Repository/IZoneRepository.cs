@@ -1,11 +1,12 @@
-﻿//Marcel Joubert - 35376759//
+﻿using DeviceManagement_WebApp.Models;
+using System;
+using System.Collections.Generic;
 
-using DeviceManagement_WebApp.Models;
-
-namespace DeviceManagement_WebApp.Repositories
+namespace DeviceManagement_WebApp.Repository
 {
     public interface IZoneRepository : IGenericRepository<Zone>
     {
         Zone GetMostRecentZone();
     }
+
 }

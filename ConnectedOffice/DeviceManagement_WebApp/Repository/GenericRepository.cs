@@ -1,13 +1,11 @@
-﻿//Marcel Joubert - 35376759
-
-using static DeviceManagement_WebApp.Repositories.ZoneRepository;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using DeviceManagement_WebApp.Data;
 using System;
-using DeviceManagement_WebApp.Data;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
-namespace DeviceManagement_WebApp.Repositories
+namespace DeviceManagement_WebApp.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -46,5 +44,3 @@ namespace DeviceManagement_WebApp.Repositories
         }
     }
 }
-
-

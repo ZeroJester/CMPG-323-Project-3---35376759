@@ -29,6 +29,5 @@ namespace DeviceManagement_WebApp.Models
         public virtual Category Category { get; set; }
         [DisplayName("Zone")]
         public virtual Zone Zone { get; set; }
-        public object CreatedDate { get; internal set; }
     }
 }

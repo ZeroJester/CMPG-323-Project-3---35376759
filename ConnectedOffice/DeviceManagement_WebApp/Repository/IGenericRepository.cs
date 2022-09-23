@@ -1,14 +1,13 @@
-﻿//Marcel Joubert - 35376759
-
+﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System;
 
-namespace DeviceManagement_WebApp.Repositories
+namespace DeviceManagement_WebApp.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
-
+        
         //Get’s the entity By Id.
         T GetById(int id);
 
@@ -30,4 +29,5 @@ namespace DeviceManagement_WebApp.Repositories
         //Removes a list of records.
         void RemoveRange(IEnumerable<T> entities);
     }
+
 }

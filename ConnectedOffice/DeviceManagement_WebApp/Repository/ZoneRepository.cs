@@ -1,16 +1,13 @@
-﻿//Marcel Joubert - 35376759//
-
-using DeviceManagement_WebApp.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
+﻿using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using DeviceManagement_WebApp.Repository;
+using System.Threading.Tasks;
 
-namespace DeviceManagement_WebApp.Repositories
+namespace DeviceManagement_WebApp.Repository
 {
     public class ZoneRepository : GenericRepository<Zone>, IZoneRepository
     {
@@ -24,4 +21,6 @@ namespace DeviceManagement_WebApp.Repositories
         }
 
     }
+
+
 }
