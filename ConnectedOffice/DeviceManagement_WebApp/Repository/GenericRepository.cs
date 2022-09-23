@@ -1,4 +1,5 @@
 ﻿using DeviceManagement_WebApp.Data;
+using DeviceManagement_WebApp.IRepository;
 using System;
 using System.Collections;
 using System.Collections.Generic;

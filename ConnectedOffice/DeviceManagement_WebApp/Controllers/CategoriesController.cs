@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
-using DeviceManagement_WebApp.Repository;
+using DeviceManagement_WebApp.IRepository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -21,13 +21,5 @@ namespace DeviceManagement_WebApp.Controllers
         {
             _categoryRepository = categoryRepository;
         }
-
-        //Inherited GET method to retrieve all zones//
-        public async Task<IActionResult> IndexCat()
-        {
-            return View(_categoryRepository.GetAll());
-        }
-
-
     }
 }

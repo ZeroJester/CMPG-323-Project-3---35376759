@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DeviceManagement_WebApp.Repository
+namespace DeviceManagement_WebApp.IRepository
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -15,12 +15,12 @@ namespace DeviceManagement_WebApp.Repository
         Task<bool> Delete(Guid id);
         Task<bool> Upsert(T entity);
 
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         /*
         //Get’s the entity By Id.
         T GetById(int id);

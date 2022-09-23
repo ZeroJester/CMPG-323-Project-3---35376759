@@ -1,4 +1,5 @@
 using DeviceManagement_WebApp.Data;
+using DeviceManagement_WebApp.IRepository;
 using DeviceManagement_WebApp.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
