@@ -20,6 +20,12 @@ namespace DeviceManagement_WebApp.Repository
             return _context.Zone.OrderByDescending(zone => zone.DateCreated).FirstOrDefault();
         }
 
+
+        public Zone GetById(int id)
+        {
+            return _context.Zone.Find(id);
+        }
+
     }
 
 

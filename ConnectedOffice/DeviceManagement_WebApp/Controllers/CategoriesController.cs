@@ -10,6 +10,8 @@ using DeviceManagement_WebApp.Models;
 
 namespace DeviceManagement_WebApp.Controllers
 {
+
+    [Route("[controller]")]
     public class CategoriesController : Controller
     {
         private readonly ConnectedOfficeContext _context;
