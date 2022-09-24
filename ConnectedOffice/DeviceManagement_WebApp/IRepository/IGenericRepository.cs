@@ -9,7 +9,7 @@ namespace DeviceManagement_WebApp.IRepository
     public interface IGenericRepository<T> where T : class
     {
         //Get’s the entity By Id.
-        T GetById(int id);
+        T GetById(Guid id);
 
 
 
@@ -39,7 +39,7 @@ namespace DeviceManagement_WebApp.IRepository
 
 
         //Removes a list of records.
-        void RemoveRange(IEnumerable<T> entities);*/
+        void RemoveRange(IEnumerable<T> entities);
     }
 
 }

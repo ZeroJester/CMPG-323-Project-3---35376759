@@ -1,4 +1,3 @@
-using DeviceManagement_WebApp.Configuration;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.IRepository;
 using DeviceManagement_WebApp.Repository;
@@ -41,10 +40,11 @@ namespace DeviceManagement_WebApp
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+
+            services.AddMvc();
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IZoneRepository, ZoneRepository>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,28 +10,141 @@ using DeviceManagement_WebApp.Models;
 using Microsoft.AspNetCore.Routing;
 using DeviceManagement_WebApp.IRepository;
 using Microsoft.Extensions.Logging;
-using DeviceManagement_WebApp.Configuration;
 
 namespace DeviceManagement_WebApp.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     public class ZonesController : Controller
     {
-        private readonly IZoneRepository _zoneRepository;
-        private readonly ILogger<ZonesController> _logger;
-        private readonly IUnitOfWork _unitOfWork;
-
-
-
-        public ZonesController(
-            IZoneRepository zoneRepository,
-            ILogger<ZonesController> logger,
-            IUnitOfWork unitOfWork)
+        private readonly IZoneRepository _zr;
+        public ZonesController(IZoneRepository zoneRepository)
         {
-           _logger = logger;
-            _unitOfWork = unitOfWork;   
-            _zoneRepository = zoneRepository;
+            _zr = zoneRepository;
+        }
+
+
+
+
+
+
+
+        //GET METHODS
+
+        // GET: retrieve all items in a table format : Get All
+        public IActionResult Index()
+        {
+            return View(_zr.GetAll());
+        }
+
+        // GET: show one item in a singular item format : Get By ID
+        [Route("zones/{id}")]
+        [HttpGet]
+        public IActionResult Details(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            // Product product = db.Products.Find(id);
+            Zone zone = _zr.GetById(id);
+            if (zone == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(zone);
+                Dispose();
+            }
+        }
+
+
+
+
+
+
+
+        //DELETE METHODS
+
+        public void Delete(Zone zone)
+        {
+            if (zone == null)
+            {
+                NotFound();
+                View(zone);
+            }
+            // Product product = db.Products.Find(id);
+            _zr.Remove(zone);
+        }
+
+        // GET: retrieve item by item id : Get By ID
+        [Route("zones/delete/{id}")]
+        public ActionResult Delete(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Zone zone = _zr.GetById(id);
+            if (zone == null)
+            {
+                return NotFound();
+            }
+            _zr.Remove(zone);
+            return RedirectToAction("Index");
+        }
+
+        //DELETE: delete item base on item id given : Remove
+        [Route("zones/delete/{id}")]
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(Zone zone)
+        {
+            _zr.Remove(zone);
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+        //EDIT METHODS
+
+        // GET: retrieves a single item base on the item id given : Get By ID
+        public ActionResult Edit(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Zone zone = _zr.GetById(id);
+            if (zone == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(zone);
+                Dispose();
+            }
+        }
+
+        // POST: edits/updates the information of a single item matching the given id : Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Zone zone)
+        {
+            if (ModelState.IsValid)
+            {
+               // _zr.AddRange(zone);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(zone);
+                Dispose();
+            }
         }
 
 
@@ -41,24 +154,43 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
+        //CREATE METHODS
 
-        /*
-         public IEnumerable<T> GetAll()
+        // GET: returns blank view : Get None
+        public ActionResult Create()
         {
-            return _context.Set<T>().ToList();
+            return View();
+        }
+
+        // POST: executes Add command, thus adding an item to the database : Add
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Zone zone)
+        {
+            if (ModelState.IsValid)
+            {
+                _zr.Add(zone);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(zone);
+                Dispose();
+            }
+
         }
 
 
-        //Inherited GET method to retrieve all zones//
-        public async Task<IActionResult> Index()
-        {
-            return View(_zoneRepository.GetAll());
-        }
 
-        //Inherited GET method to retrieve zones by id//
-        public async Task<IActionResult> GetMostRecent()
+
+
+
+
+        //DISPOSE METHOD
+
+        protected override void Dispose(bool disposing)
         {
-            return View(_zoneRepository.GetMostRecentZone());
-        }*/
+            base.Dispose(disposing);
+        }
     }
 }

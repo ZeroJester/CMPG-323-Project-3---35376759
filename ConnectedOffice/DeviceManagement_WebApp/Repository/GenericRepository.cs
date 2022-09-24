@@ -54,7 +54,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
         //implementation for the generic GetById method//
-        public T GetById(int id)
+        public T GetById(Guid id)
         {
             return _context.Set<T>().Find(id);
         }
