@@ -5,8 +5,8 @@ namespace DeviceManagement_WebApp.Configuration
 {
     public class IUnitOfWork
     {
-        IZoneRepository Zone { get; }
+        IZoneRepository Zone {get;}
 
-        //Task CompleteAsync();
+        //public virtual Task CompleteAsync();
     }
 }

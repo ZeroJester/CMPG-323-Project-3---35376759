@@ -13,80 +13,68 @@ namespace DeviceManagement_WebApp.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly ConnectedOfficeContext _context;
-        
-        protected DbSet<T> _dbSet;
-
-        protected readonly ILogger _logger;
-
-        public GenericRepository(
-            ConnectedOfficeContext context, 
-            ILogger logger)
-        {
-            _context = context;
-            _logger = logger;
-        }
-
-        public Task<IEnumerable<T>> All()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Add(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Upsert(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
-
-        /*public GenericRepository(ConnectedOfficeContext context)
+        private readonly ConnectedOfficeContext _context;
+        public GenericRepository(ConnectedOfficeContext context)
         {
             _context = context;
         }
+
+
+        //implementation for the generic Add method//
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
+            _context.SaveChanges();
         }
+
+
+        //implementation for the generic AddRange method//
         public void AddRange(IEnumerable<T> entities)
         {
             _context.Set<T>().AddRange(entities);
+            _context.SaveChanges();
         }
+
+
+
+        //implementation for the generic Find method//
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
         }
+
+
+
+        //implementation for the generic GetAll method//
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
+
+
+
+        //implementation for the generic GetById method//
         public T GetById(int id)
         {
             return _context.Set<T>().Find(id);
         }
+
+
+
+        //implementation for the Remove add method//
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
         }
+
+
+
+        //implementation for the RemoveRange add method//
         public void RemoveRange(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
-        }*/
+            _context.SaveChanges();
+        }
     }
 }
