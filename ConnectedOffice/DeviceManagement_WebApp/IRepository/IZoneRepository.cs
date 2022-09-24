@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 namespace DeviceManagement_WebApp.IRepository
 {
     public interface IZoneRepository : IGenericRepository<Zone>
-    {
-        /*Zone GetMostRecentZone();
-
-        Zone GetZone();*/
-
+    { 
     }
 
 }
