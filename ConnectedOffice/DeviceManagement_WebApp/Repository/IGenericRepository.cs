@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DeviceManagement_WebApp.IRepository
+namespace DeviceManagement_WebApp.Repository
 {
     public interface IGenericRepository<T> where T : class
     {

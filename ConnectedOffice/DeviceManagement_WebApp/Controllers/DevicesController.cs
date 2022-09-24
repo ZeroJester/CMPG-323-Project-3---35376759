@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
-using DeviceManagement_WebApp.IRepository;
 using System.Security.Policy;
+using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
-    [Route("[controller]")]
     public class DeviceController : Controller
     {
         private readonly IDeviceRepository _dr;
@@ -26,13 +25,13 @@ namespace DeviceManagement_WebApp.Controllers
 
         // GET: retrieve all items in a table format : Get All
         //[Route("devices")]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             //return View(db.Products.ToList());
             return View(_dr.GetAll());
         }
 
-        // GET: show one item in a singular item format : Get By ID
+        /*// GET: show one item in a singular item format : Get By ID
         [Route("devices/{id}")]
         [HttpGet]
         public IActionResult Details(Guid id)
@@ -84,7 +83,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         //EDIT
 
-        /*// GET: retrieves a single item base on the item id given : Get By ID
+        // GET: retrieves a single item base on the item id given : Get By ID
         public ActionResult Edit(Guid id)
         {
             if (id == null)
@@ -121,7 +120,7 @@ namespace DeviceManagement_WebApp.Controllers
                 return View(service);
                 Dispose();
             }
-        }*/
+        }
 
 
 
@@ -169,6 +168,6 @@ namespace DeviceManagement_WebApp.Controllers
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

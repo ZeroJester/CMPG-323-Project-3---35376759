@@ -1,5 +1,4 @@
 using DeviceManagement_WebApp.Data;
-using DeviceManagement_WebApp.IRepository;
 using DeviceManagement_WebApp.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,9 +43,7 @@ namespace DeviceManagement_WebApp
             services.AddMvc();
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IZoneRepository, ZoneRepository>();
-            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IDeviceRepository, DeviceRepository>();
-            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
 
         }

@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using Microsoft.AspNetCore.Routing;
-using DeviceManagement_WebApp.IRepository;
 using Microsoft.Extensions.Logging;
+using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -32,7 +32,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(_zr.GetAll());
         }
 
-        // GET: show one item in a singular item format : Get By ID
+        /*// GET: show one item in a singular item format : Get By ID
         [Route("zones/{id}")]
         [HttpGet]
         public IActionResult Details(Guid id)
@@ -85,7 +85,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         //EDIT
 
-        /*// GET: retrieves a single item base on the item id given : Get By ID
+        // GET: retrieves a single item base on the item id given : Get By ID
         public ActionResult Edit(Guid id)
         {
             if (id == null)
@@ -122,7 +122,7 @@ namespace DeviceManagement_WebApp.Controllers
                 return View(service);
                 Dispose();
             }
-        }*/
+        }
 
 
 
@@ -170,6 +170,6 @@ namespace DeviceManagement_WebApp.Controllers
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

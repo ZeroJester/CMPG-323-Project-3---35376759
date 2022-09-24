@@ -1,5 +1,4 @@
 ﻿using DeviceManagement_WebApp.Data;
-using DeviceManagement_WebApp.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
