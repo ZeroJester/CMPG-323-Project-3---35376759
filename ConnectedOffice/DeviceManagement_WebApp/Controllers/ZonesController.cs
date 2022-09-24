@@ -32,7 +32,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(_zr.GetAll());
         }
 
-        /*// GET: show one item in a singular item format : Get By ID
+        // GET: show one item in a singular item format : Get By ID
         [Route("zones/{id}")]
         [HttpGet]
         public IActionResult Details(Guid id)
@@ -77,7 +77,7 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction("Index");
         }
 
-     
+
 
 
 
@@ -86,41 +86,38 @@ namespace DeviceManagement_WebApp.Controllers
         //EDIT
 
         // GET: retrieves a single item base on the item id given : Get By ID
-        public ActionResult Edit(Guid id)
+        /*public ActionResult Edit(Zone  zone)
         {
-            if (id == null)
-            {
-                return NotFound();
-                //return View(service);
-            }
-            Service service = _sr.GetById(id);
-            if (service == null)
+            if (zone == null)
             {
                 return NotFound();
             }
             else
             {
-                return View(service);
+                return View(zone);
                 Dispose();
             }
+        }*/
+
+
+        public ActionResult Edit()
+        {
+            return View();
         }
+
 
         // POST: edits/updates the information of a single item matching the given id : Edit
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Service service)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit(Zone zone)
         {
-            if (ModelState.IsValid)
             {
-                //db.Entry(product).State = EntityState.Modified;
-                //db.SaveChanges();
-                _sr.AddRange(service);
+                _zr.Edit(zone);
                 return RedirectToAction("Index");
             }
-            else
             {
-                return View(service);
                 Dispose();
+                return View(zone);
             }
         }
 
@@ -170,6 +167,6 @@ namespace DeviceManagement_WebApp.Controllers
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-        }*/
+        }
     }
 }
