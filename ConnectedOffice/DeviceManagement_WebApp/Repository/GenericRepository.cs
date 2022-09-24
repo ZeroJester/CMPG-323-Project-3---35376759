@@ -60,7 +60,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for the Remove add method//
+        //implementation for the Remove method//
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
@@ -69,10 +69,19 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for the RemoveRange add method//
+        //implementation for the RemoveRange  method//
         public void RemoveRange(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
+            _context.SaveChanges();
+        }
+
+
+
+        //implementation for Edit method//
+        public void Edit(T entity)
+        {
+            _context.Set<T>().Update(entity);
             _context.SaveChanges();
         }
     }

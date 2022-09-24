@@ -40,6 +40,10 @@ namespace DeviceManagement_WebApp.Repository
 
         //Removes a list of records.
         void RemoveRange(IEnumerable<T> entities);
+
+
+        //Edit a records.
+        void Edit(T entity);
     }
 
 }
