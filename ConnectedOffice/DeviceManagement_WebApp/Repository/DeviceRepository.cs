@@ -11,11 +11,5 @@ namespace DeviceManagement_WebApp.Repository
         public DeviceRepository(ConnectedOfficeContext context) : base(context)
         {
         }
-
-        public Device GetMostRecentDevice()
-        {
-            return _context.Device.OrderByDescending(device => device.DateCreated).FirstOrDefault();
-        }
-
     }
 }
