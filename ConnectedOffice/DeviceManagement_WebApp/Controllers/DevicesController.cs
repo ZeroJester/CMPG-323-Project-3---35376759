@@ -12,10 +12,10 @@ using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
-    public class DeviceController : Controller
+    public class DevicesController : Controller
     {
         private readonly IDeviceRepository _dr;
-        public DeviceController(IDeviceRepository deviceRepository)
+        public DevicesController(IDeviceRepository deviceRepository)
         {
             _dr = deviceRepository;
         }
@@ -24,14 +24,13 @@ namespace DeviceManagement_WebApp.Controllers
         //GET
 
         // GET: retrieve all items in a table format : Get All
-        //[Route("devices")]
         public IActionResult Index()
         {
             //return View(db.Products.ToList());
             return View(_dr.GetAll());
         }
 
-        /*// GET: show one item in a singular item format : Get By ID
+        // GET: show one item in a singular item format : Get By ID
         [Route("devices/{id}")]
         [HttpGet]
         public IActionResult Details(Guid id)
@@ -81,7 +80,7 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //EDIT
+       /* //EDIT
 
         // GET: retrieves a single item base on the item id given : Get By ID
         public ActionResult Edit(Guid id)
@@ -121,7 +120,7 @@ namespace DeviceManagement_WebApp.Controllers
                 Dispose();
             }
         }
-
+       */
 
 
 
@@ -168,6 +167,6 @@ namespace DeviceManagement_WebApp.Controllers
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-        }*/
+        }
     }
 }
