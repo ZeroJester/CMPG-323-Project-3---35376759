@@ -44,6 +44,8 @@ namespace DeviceManagement_WebApp
             services.AddMvc();
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IZoneRepository, ZoneRepository>();
+            services.AddTransient<IDeviceRepository, DeviceRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
         }
 

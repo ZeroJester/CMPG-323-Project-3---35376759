@@ -13,26 +13,23 @@ using Microsoft.Extensions.Logging;
 
 namespace DeviceManagement_WebApp.Controllers
 {
+
     public class ZonesController : Controller
     {
-        private readonly IZoneRepository _zr;
+        private readonly IZoneRepository _sr;
         public ZonesController(IZoneRepository zoneRepository)
         {
-            _zr = zoneRepository;
+            _sr = zoneRepository;
         }
 
 
-
-
-
-
-
-        //GET METHODS
+        //GET
 
         // GET: retrieve all items in a table format : Get All
         public IActionResult Index()
         {
-            return View(_zr.GetAll());
+            //return View(db.Products.ToList());
+            return View(_sr.GetAll());
         }
 
         // GET: show one item in a singular item format : Get By ID
@@ -45,87 +42,65 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
             // Product product = db.Products.Find(id);
-            Zone zone = _zr.GetById(id);
-            if (zone == null)
+            Zone zones = _sr.GetById(id);
+            if (zones == null)
             {
                 return NotFound();
             }
             else
             {
-                return View(zone);
+                return View(zones);
                 Dispose();
             }
         }
 
 
 
+      
 
-
-
-
-        //DELETE METHODS
-
-        public void Delete(Zone zone)
-        {
-            if (zone == null)
-            {
-                NotFound();
-                View(zone);
-            }
-            // Product product = db.Products.Find(id);
-            _zr.Remove(zone);
-        }
-
-        // GET: retrieve item by item id : Get By ID
+        // DELETE: delete item base on item id given : Remove
         [Route("zones/delete/{id}")]
         public ActionResult Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
+                //return View(service);
             }
-            Zone zone = _zr.GetById(id);
-            if (zone == null)
+            Zone zones = _sr.GetById(id);
+            if (zones == null)
             {
                 return NotFound();
             }
-            _zr.Remove(zone);
+            _sr.Remove(zones);
+            //return View(service);
             return RedirectToAction("Index");
         }
 
-        //DELETE: delete item base on item id given : Remove
-        [Route("zones/delete/{id}")]
-        [HttpDelete]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Zone zone)
-        {
-            _zr.Remove(zone);
-            return RedirectToAction("Index");
-        }
+     
 
 
 
 
 
+        //EDIT
 
-
-        //EDIT METHODS
-
-        // GET: retrieves a single item base on the item id given : Get By ID
+        /*// GET: retrieves a single item base on the item id given : Get By ID
         public ActionResult Edit(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
+                //return View(service);
             }
-            Zone zone = _zr.GetById(id);
-            if (zone == null)
+            Service service = _sr.GetById(id);
+            if (service == null)
             {
                 return NotFound();
             }
             else
             {
-                return View(zone);
+                return View(service);
                 Dispose();
             }
         }
@@ -133,19 +108,21 @@ namespace DeviceManagement_WebApp.Controllers
         // POST: edits/updates the information of a single item matching the given id : Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Zone zone)
+        public IActionResult Edit(Service service)
         {
             if (ModelState.IsValid)
             {
-               // _zr.AddRange(zone);
+                //db.Entry(product).State = EntityState.Modified;
+                //db.SaveChanges();
+                _sr.AddRange(service);
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(zone);
+                return View(service);
                 Dispose();
             }
-        }
+        }*/
 
 
 
@@ -154,7 +131,7 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //CREATE METHODS
+        //CREATE
 
         // GET: returns blank view : Get None
         public ActionResult Create()
@@ -162,20 +139,23 @@ namespace DeviceManagement_WebApp.Controllers
             return View();
         }
 
+
         // POST: executes Add command, thus adding an item to the database : Add
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Zone zone)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Zone zones)
         {
-            if (ModelState.IsValid)
+            if (zones!=null)
             {
-                _zr.Add(zone);
+                _sr.Add(zones);
+
+                //return CreatedAtAction("Index", service);
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(zone);
                 Dispose();
+                return View(zones);
             }
 
         }
@@ -184,9 +164,8 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
+        //DISPOSE
 
-
-        //DISPOSE METHOD
 
         protected override void Dispose(bool disposing)
         {

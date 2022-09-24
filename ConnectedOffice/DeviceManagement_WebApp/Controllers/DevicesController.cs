@@ -7,153 +7,166 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using DeviceManagement_WebApp.IRepository;
+using System.Security.Policy;
 
 namespace DeviceManagement_WebApp.Controllers
 {
-
-    //[Route("[controller]")]
-    public class DevicesController : Controller
+    public class DeviceController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
-
-        public DevicesController(ConnectedOfficeContext context)
+        private readonly IDeviceRepository _sr;
+        public DeviceController(IDeviceRepository deviceRepository)
         {
-            _context = context;
+            _sr = deviceRepository;
         }
 
-        // GET: Devices
-        public async Task<IActionResult> Index()
+
+        //GET
+
+        // GET: retrieve all items in a table format : Get All
+        public IActionResult Index()
         {
-            var connectedOfficeContext = _context.Device.Include(d => d.Category).Include(d => d.Zone);
-            return View(await connectedOfficeContext.ToListAsync());
+            //return View(db.Products.ToList());
+            return View(_sr.GetAll());
         }
 
-        // GET: Devices/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        // GET: show one item in a singular item format : Get By ID
+        [Route("devices/{id}")]
+        [HttpGet]
+        public IActionResult Details(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var device = await _context.Device
-                .Include(d => d.Category)
-                .Include(d => d.Zone)
-                .FirstOrDefaultAsync(m => m.DeviceId == id);
+            // Product product = db.Products.Find(id);
+            Device device = _sr.GetById(id);
             if (device == null)
             {
                 return NotFound();
             }
-
-            return View(device);
+            else
+            {
+                Dispose();
+                return View(device);
+               
+            }
         }
 
-        // GET: Devices/Create
-        public IActionResult Create()
+
+
+
+
+        // DELETE: delete item base on item id given : Remove
+        [Route("devices/delete/{id}")]
+        public ActionResult Delete(Guid id)
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
-            ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName");
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Device device = _sr.GetById(id);
+            if (device == null)
+            {
+                return NotFound();
+            }
+            _sr.Remove(device);
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+        //EDIT
+
+        /*// GET: retrieves a single item base on the item id given : Get By ID
+        public ActionResult Edit(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+                //return View(service);
+            }
+            Service service = _sr.GetById(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(service);
+                Dispose();
+            }
+        }
+
+        // POST: edits/updates the information of a single item matching the given id : Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Service service)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.Entry(product).State = EntityState.Modified;
+                //db.SaveChanges();
+                _sr.AddRange(service);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(service);
+                Dispose();
+            }
+        }*/
+
+
+
+
+
+
+
+
+        //CREATE
+
+        // GET: returns blank view : Get None
+        public ActionResult Create()
+        {
             return View();
         }
 
-        // POST: Devices/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        // POST: executes Add command, thus adding an item to the database : Add
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DeviceId,DeviceName,CategoryId,ZoneId,Status,IsActive,DateCreated")] Device device)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Device device)
         {
-            device.DeviceId = Guid.NewGuid();
-            _context.Add(device);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (device != null)
+            {
+                _sr.Add(device);
 
+                //return CreatedAtAction("Index", service);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                Dispose();
+                return View(device);
+            }
 
         }
 
-        // GET: Devices/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+
+
+
+
+        //DISPOSE
+
+
+        protected override void Dispose(bool disposing)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var device = await _context.Device.FindAsync(id);
-            if (device == null)
-            {
-                return NotFound();
-            }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", device.CategoryId);
-            ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName", device.ZoneId);
-            return View(device);
-        }
-
-        // POST: Devices/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("DeviceId,DeviceName,CategoryId,ZoneId,Status,IsActive,DateCreated")] Device device)
-        {
-            if (id != device.DeviceId)
-            {
-                return NotFound();
-            }
-            try
-            {
-                _context.Update(device);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DeviceExists(device.DeviceId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
-
-        }
-
-        // GET: Devices/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var device = await _context.Device
-                .Include(d => d.Category)
-                .Include(d => d.Zone)
-                .FirstOrDefaultAsync(m => m.DeviceId == id);
-            if (device == null)
-            {
-                return NotFound();
-            }
-
-            return View(device);
-        }
-
-        // POST: Devices/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var device = await _context.Device.FindAsync(id);
-            _context.Device.Remove(device);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool DeviceExists(Guid id)
-        {
-            return _context.Device.Any(e => e.DeviceId == id);
+            base.Dispose(disposing);
         }
     }
 }
