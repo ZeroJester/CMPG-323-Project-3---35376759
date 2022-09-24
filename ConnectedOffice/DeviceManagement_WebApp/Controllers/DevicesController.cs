@@ -12,22 +12,24 @@ using System.Security.Policy;
 
 namespace DeviceManagement_WebApp.Controllers
 {
+    [Route("[controller]")]
     public class DeviceController : Controller
     {
-        private readonly IDeviceRepository _sr;
+        private readonly IDeviceRepository _dr;
         public DeviceController(IDeviceRepository deviceRepository)
         {
-            _sr = deviceRepository;
+            _dr = deviceRepository;
         }
 
 
         //GET
 
         // GET: retrieve all items in a table format : Get All
-        public IActionResult Index()
+        //[Route("devices")]
+        public ActionResult Index()
         {
             //return View(db.Products.ToList());
-            return View(_sr.GetAll());
+            return View(_dr.GetAll());
         }
 
         // GET: show one item in a singular item format : Get By ID
@@ -40,7 +42,7 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
             // Product product = db.Products.Find(id);
-            Device device = _sr.GetById(id);
+            Device device = _dr.GetById(id);
             if (device == null)
             {
                 return NotFound();
@@ -65,12 +67,12 @@ namespace DeviceManagement_WebApp.Controllers
             {
                 return NotFound();
             }
-            Device device = _sr.GetById(id);
+            Device device = _dr.GetById(id);
             if (device == null)
             {
                 return NotFound();
             }
-            _sr.Remove(device);
+            _dr.Remove(device);
             return RedirectToAction("Index");
         }
 
@@ -144,7 +146,7 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (device != null)
             {
-                _sr.Add(device);
+                _dr.Add(device);
 
                 //return CreatedAtAction("Index", service);
                 return RedirectToAction("Index");

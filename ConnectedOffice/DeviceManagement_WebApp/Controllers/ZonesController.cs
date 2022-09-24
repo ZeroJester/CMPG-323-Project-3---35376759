@@ -16,10 +16,10 @@ namespace DeviceManagement_WebApp.Controllers
 
     public class ZonesController : Controller
     {
-        private readonly IZoneRepository _sr;
+        private readonly IZoneRepository _zr;
         public ZonesController(IZoneRepository zoneRepository)
         {
-            _sr = zoneRepository;
+            _zr = zoneRepository;
         }
 
 
@@ -29,7 +29,7 @@ namespace DeviceManagement_WebApp.Controllers
         public IActionResult Index()
         {
             //return View(db.Products.ToList());
-            return View(_sr.GetAll());
+            return View(_zr.GetAll());
         }
 
         // GET: show one item in a singular item format : Get By ID
@@ -42,7 +42,7 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
             // Product product = db.Products.Find(id);
-            Zone zones = _sr.GetById(id);
+            Zone zones = _zr.GetById(id);
             if (zones == null)
             {
                 return NotFound();
@@ -67,12 +67,12 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
                 //return View(service);
             }
-            Zone zones = _sr.GetById(id);
+            Zone zones = _zr.GetById(id);
             if (zones == null)
             {
                 return NotFound();
             }
-            _sr.Remove(zones);
+            _zr.Remove(zones);
             //return View(service);
             return RedirectToAction("Index");
         }
@@ -147,7 +147,7 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (zones!=null)
             {
-                _sr.Add(zones);
+                _zr.Add(zones);
 
                 //return CreatedAtAction("Index", service);
                 return RedirectToAction("Index");
