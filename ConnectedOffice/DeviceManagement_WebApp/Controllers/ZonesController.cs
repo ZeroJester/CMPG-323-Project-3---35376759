@@ -114,17 +114,14 @@ namespace DeviceManagement_WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Edit(Zone zone)
         {
-            if (zone!=null)
-            {
-                zone.DateCreated = DateTime.Now.Date;
-                _zr.Edit(zone);
-                return RedirectToAction("Index");
-            }
-            else
+            if (zone == null)
             {
                 Dispose();
                 return View(zone);
             }
+            zone.DateCreated = DateTime.Now.Date;
+            _zr.Edit(zone);
+            return RedirectToAction("Index");
         }
 
 
