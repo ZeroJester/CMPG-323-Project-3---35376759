@@ -69,7 +69,6 @@ namespace DeviceManagement_WebApp.Controllers
             if (id == null)
             {
                 return NotFound();
-                return RedirectToAction("Index");
             }
             Zone zones = _zr.GetById(id);
             if (zones == null)
@@ -114,13 +113,15 @@ namespace DeviceManagement_WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Edit(Zone zone)
         {
+
             if (zone == null)
             {
                 Dispose();
                 return View(zone);
             }
             zone.DateCreated = DateTime.Now.Date;
-            _zr.Edit(zone);
+            _zr.Remove(zone);
+            _zr.Add(zone);
             return RedirectToAction("Index");
         }
 
