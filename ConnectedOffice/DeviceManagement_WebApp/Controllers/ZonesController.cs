@@ -10,6 +10,7 @@ using DeviceManagement_WebApp.Models;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using DeviceManagement_WebApp.Repository;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -26,7 +27,7 @@ namespace DeviceManagement_WebApp.Controllers
         //GET
 
         // GET: retrieve all items in a table format : Get All
-        public IActionResult Index()
+        public ActionResult Index()
         {
             //return View(db.Products.ToList());
             return View(_zr.GetAll());
@@ -35,7 +36,7 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: show one item in a singular item format : Get By ID
         //[Route("zones/{id}")]
         [HttpGet]
-        public IActionResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
             if (id == null)
             {
@@ -49,8 +50,9 @@ namespace DeviceManagement_WebApp.Controllers
             }
             else
             {
-                return View(zones);
                 Dispose();
+                return View(zones);
+                
             }
         }
 
@@ -110,24 +112,19 @@ namespace DeviceManagement_WebApp.Controllers
 
         // POST: edits/updates the information of a single item matching the given id : Edit
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            Zone zone = _zr.GetById(id);
-            if (zone == null)
+            Zone zones = _zr.GetById(id);
+            if (zones == null)
             {
-                Dispose();
-                return View(zone);
+                return NotFound();
             }
-
-            zone.DateCreated = DateTime.Now.Date;
-            _zr.Update(zone);
-           // _zr.Add(zone);
+            _zr.Update(zones);
             return RedirectToAction("Index");
         }
 

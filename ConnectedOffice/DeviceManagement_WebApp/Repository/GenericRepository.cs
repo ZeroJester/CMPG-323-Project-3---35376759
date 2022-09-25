@@ -82,6 +82,7 @@ namespace DeviceManagement_WebApp.Repository
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
+            //_context.SaveChangesAsync();
             _context.SaveChanges();
         }
     }
