@@ -33,7 +33,7 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
         // GET: show one item in a singular item format : Get By ID
-        [Route("zones/{id}")]
+        //[Route("zones/{id}")]
         [HttpGet]
         public IActionResult Details(Guid id)
         {
@@ -55,17 +55,21 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
 
+        public ActionResult Delete()
+        {
+            return View();
+        }
 
-      
 
         // DELETE: delete item base on item id given : Remove
-        [Route("zones/delete/{id}")]
+        //[Route("zones/delete/{id}")]
+        [HttpPost]
         public ActionResult Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
-                //return View(service);
+                return RedirectToAction("Index");
             }
             Zone zones = _zr.GetById(id);
             if (zones == null)
@@ -73,7 +77,6 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
             _zr.Remove(zones);
-            //return View(service);
             return RedirectToAction("Index");
         }
 
@@ -111,10 +114,12 @@ namespace DeviceManagement_WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Edit(Zone zone)
         {
+            if (zone!=null)
             {
                 _zr.Edit(zone);
                 return RedirectToAction("Index");
             }
+            else
             {
                 Dispose();
                 return View(zone);

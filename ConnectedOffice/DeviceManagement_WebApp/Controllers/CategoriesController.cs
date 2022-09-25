@@ -31,7 +31,7 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
         // GET: show one item in a singular item format : Get By ID
-        [Route("categories/{id}")]
+        //[Route("categories/{id}")]
         [HttpGet]
         public IActionResult Details(Guid id)
         {
@@ -53,26 +53,32 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-      
+
+
+        public ActionResult Delete()
+        {
+            return View();
+        }
 
         // DELETE: delete item base on item id given : Remove
-        [Route("category/delete/{id}")]
+        [HttpPost]
         public ActionResult Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
+                return RedirectToAction("Index");
             }
-            Category category = _cr.GetById(id);
-            if (category == null)
+            Category categories = _cr.GetById(id);
+            if (categories == null)
             {
                 return NotFound();
             }
-            _cr.Remove(category);
+            _cr.Remove(categories);
             return RedirectToAction("Index");
         }
 
-     
+
 
 
 

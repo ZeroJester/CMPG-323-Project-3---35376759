@@ -31,7 +31,7 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
         // GET: show one item in a singular item format : Get By ID
-        [Route("devices/{id}")]
+        //[Route("devices/{id}")]
         [HttpGet]
         public IActionResult Details(Guid id)
         {
@@ -55,22 +55,26 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-
+        public ActionResult Delete()
+        {
+            return View();
+        }
 
         // DELETE: delete item base on item id given : Remove
-        [Route("devices/delete/{id}")]
+        [HttpPost]
         public ActionResult Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
+                return RedirectToAction("Index");
             }
-            Device device = _dr.GetById(id);
-            if (device == null)
+            Device devices = _dr.GetById(id);
+            if (devices == null)
             {
                 return NotFound();
             }
-            _dr.Remove(device);
+            _dr.Remove(devices);
             return RedirectToAction("Index");
         }
 
@@ -79,48 +83,47 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
+        /* //EDIT
 
-       /* //EDIT
+         // GET: retrieves a single item base on the item id given : Get By ID
+         public ActionResult Edit(Guid id)
+         {
+             if (id == null)
+             {
+                 return NotFound();
+                 //return View(service);
+             }
+             Service service = _sr.GetById(id);
+             if (service == null)
+             {
+                 return NotFound();
+             }
+             else
+             {
+                 return View(service);
+                 Dispose();
+             }
+         }
 
-        // GET: retrieves a single item base on the item id given : Get By ID
-        public ActionResult Edit(Guid id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-                //return View(service);
-            }
-            Service service = _sr.GetById(id);
-            if (service == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return View(service);
-                Dispose();
-            }
-        }
-
-        // POST: edits/updates the information of a single item matching the given id : Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Service service)
-        {
-            if (ModelState.IsValid)
-            {
-                //db.Entry(product).State = EntityState.Modified;
-                //db.SaveChanges();
-                _sr.AddRange(service);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(service);
-                Dispose();
-            }
-        }
-       */
+         // POST: edits/updates the information of a single item matching the given id : Edit
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         public IActionResult Edit(Service service)
+         {
+             if (ModelState.IsValid)
+             {
+                 //db.Entry(product).State = EntityState.Modified;
+                 //db.SaveChanges();
+                 _sr.AddRange(service);
+                 return RedirectToAction("Index");
+             }
+             else
+             {
+                 return View(service);
+                 Dispose();
+             }
+         }
+        */
 
 
 
