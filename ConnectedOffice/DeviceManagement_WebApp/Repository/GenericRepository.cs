@@ -79,9 +79,9 @@ namespace DeviceManagement_WebApp.Repository
 
 
         //implementation for Edit method//
-        public void Edit(Guid id)
+        public void Update(T entity)
         {
-            _context.Set<T>().Update(GetById(id));
+            _context.Set<T>().Update(entity);
             _context.SaveChanges();
         }
     }

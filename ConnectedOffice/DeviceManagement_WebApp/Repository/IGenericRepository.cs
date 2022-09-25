@@ -43,7 +43,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
         //Edit a records.
-        void Edit(Guid id);
+        void Updated(T entity);
     }
 
 }
