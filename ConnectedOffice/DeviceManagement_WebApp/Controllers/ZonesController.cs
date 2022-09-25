@@ -126,8 +126,8 @@ namespace DeviceManagement_WebApp.Controllers
             }
 
             zone.DateCreated = DateTime.Now.Date;
-            _zr.Remove(zone);
-            _zr.Add(zone);
+            _zr.Update(zone);
+           // _zr.Add(zone);
             return RedirectToAction("Index");
         }
 
