@@ -111,14 +111,20 @@ namespace DeviceManagement_WebApp.Controllers
         // POST: edits/updates the information of a single item matching the given id : Edit
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Edit(Zone zone)
+        public IActionResult Edit(Guid id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            Zone zone = _zr.GetById(id);
             if (zone == null)
             {
                 Dispose();
                 return View(zone);
             }
+
             zone.DateCreated = DateTime.Now.Date;
             _zr.Remove(zone);
             _zr.Add(zone);
