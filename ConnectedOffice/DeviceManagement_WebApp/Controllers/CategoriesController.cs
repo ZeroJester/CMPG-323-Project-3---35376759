@@ -26,7 +26,7 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: retrieve all items in a table format : Get All
         public IActionResult Index()
         {
-            //return View(db.Products.ToList());
+            
             return View(_cr.GetAll());
         }
 
@@ -46,8 +46,8 @@ namespace DeviceManagement_WebApp.Controllers
             }
             else
             {
-                return View(category);
                 Dispose();
+                return View(category);
             }
         }
 
@@ -148,6 +148,7 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (category != null)
             {
+                category.CategoryId = Guid.NewGuid();   
                 _cr.Add(category);
 
                 //return CreatedAtAction("Index", service);

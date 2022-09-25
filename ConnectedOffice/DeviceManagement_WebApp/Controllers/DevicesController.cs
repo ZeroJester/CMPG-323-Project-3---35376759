@@ -9,6 +9,7 @@ using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using System.Security.Policy;
 using DeviceManagement_WebApp.Repository;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -147,6 +148,8 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (device != null)
             {
+                device.CategoryId = Guid.Empty;
+                device.ZoneId = Guid.Empty;
                 _dr.Add(device);
 
                 //return CreatedAtAction("Index", service);

@@ -116,6 +116,7 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (zone!=null)
             {
+                zone.DateCreated = DateTime.Now.Date;
                 _zr.Edit(zone);
                 return RedirectToAction("Index");
             }
@@ -149,6 +150,7 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (zones!=null)
             {
+                zones.ZoneId = Guid.NewGuid();  
                 _zr.Add(zones);
 
                 //return CreatedAtAction("Index", service);
