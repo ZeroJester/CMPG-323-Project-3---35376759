@@ -81,8 +81,7 @@ namespace DeviceManagement_WebApp.Repository
         //implementation for Edit method//
         public void Update(T entity)
         {
-            _context.Set<T>().Update(entity);
-            //_context.SaveChangesAsync();
+            _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }

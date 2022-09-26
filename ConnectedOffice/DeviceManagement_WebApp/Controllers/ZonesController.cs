@@ -24,17 +24,17 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
 
-        //GET
 
-        // GET: retrieve all items in a table format : Get All
+
+
+        //GET METHODS//
+        //Returns all of the items in this section/category//
         public ActionResult Index()
         {
             //return View(db.Products.ToList());
             return View(_zr.GetAll());
         }
-
-        // GET: show one item in a singular item format : Get By ID
-        //[Route("zones/{id}")]
+        //Returns a specific item in the section/category//
         [HttpGet]
         public ActionResult Details(Guid id)
         {
@@ -42,7 +42,6 @@ namespace DeviceManagement_WebApp.Controllers
             {
                 return NotFound();
             }
-            // Product product = db.Products.Find(id);
             Zone zones = _zr.GetById(id);
             if (zones == null)
             {
@@ -52,19 +51,21 @@ namespace DeviceManagement_WebApp.Controllers
             {
                 Dispose();
                 return View(zones);
-                
             }
         }
 
 
+
+
+
+
+        //DELETE METHODS//
+        //Returns a view of the selected item to be deleted//
         public ActionResult Delete()
         {
             return View();
         }
-
-
-        // DELETE: delete item base on item id given : Remove
-        //[Route("zones/delete/{id}")]
+        //Deletes the selected item//
         [HttpPost]
         public ActionResult Delete(Guid id)
         {
@@ -87,44 +88,31 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //EDIT
-
-        // GET: retrieves a single item base on the item id given : Get By ID
-        /*public ActionResult Edit(Zone  zone)
-        {
-            if (zone == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return View(zone);
-                Dispose();
-            }
-        }*/
-
-
-        public ActionResult Edit()
-        {
-            return View();
-        }
-
-
-        // POST: edits/updates the information of a single item matching the given id : Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id)
+        //EDIT METHODS//
+        //Returns a view of the selected item with its values to be edited//
+        public ActionResult Edit(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            Zone zones = _zr.GetById(id);
-            if (zones == null)
+            Zone zone = _zr.GetById(id);
+            if (zone== null)
             {
                 return NotFound();
             }
-            _zr.Update(zones);
+                return View(zone);
+        }
+        //Edits/updates the selected item//
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Zone zone)
+        {
+            if (zone == null)
+            {
+                return NotFound();
+            }
+            _zr.Update(zone);
             return RedirectToAction("Index");
         }
 
@@ -135,26 +123,21 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //CREATE
-
-        // GET: returns blank view : Get None
+        //CREATE METHODS//
+        //Returns a blank view and prompts the user for input//
         public ActionResult Create()
         {
             return View();
         }
-
-
-        // POST: executes Add command, thus adding an item to the database : Add
+        //Creates a new item based on user input, ID is self-generated//
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Zone zones)
         {
             if (zones!=null)
             {
                 zones.ZoneId = Guid.NewGuid();  
                 _zr.Add(zones);
-
-                //return CreatedAtAction("Index", service);
                 return RedirectToAction("Index");
             }
             else
@@ -169,9 +152,8 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //DISPOSE
-
-
+        //DISPOSE METHODS//
+        //Dispose method to free up memory if data in memory is unused//
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

@@ -21,19 +21,19 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
 
-        //GET
 
-        // GET: retrieve all items in a table format : Get All
-        public IActionResult Index()
+
+
+        //GET//
+        //Returns all of the items in this section/category//
+        public ActionResult Index()
         {
-            
+            //return View(db.Products.ToList());
             return View(_cr.GetAll());
         }
-
-        // GET: show one item in a singular item format : Get By ID
-        //[Route("categories/{id}")]
+        //Returns a specific item in the section/category//
         [HttpGet]
-        public IActionResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
             if (id == null)
             {
@@ -55,26 +55,27 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
+
+        //DELETE//
+        //Returns a view of the selected item to be deleted//
         public ActionResult Delete()
         {
             return View();
         }
-
-        // DELETE: delete item base on item id given : Remove
+        //Deletes the selected item//
         [HttpPost]
         public ActionResult Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
-                return RedirectToAction("Index");
             }
-            Category categories = _cr.GetById(id);
-            if (categories == null)
+            Category category = _cr.GetById(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            _cr.Remove(categories);
+            _cr.Remove(category);
             return RedirectToAction("Index");
         }
 
@@ -84,74 +85,56 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //EDIT
-
-        /*// GET: retrieves a single item base on the item id given : Get By ID
+        //EDIT//
+        //Returns a view of the selected item with its values to be edited//
         public ActionResult Edit(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
-                //return View(service);
             }
-            Service service = _sr.GetById(id);
-            if (service == null)
+            Category category = _cr.GetById(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            else
-            {
-                return View(service);
-                Dispose();
-            }
+            return View(category);
         }
-
-        // POST: edits/updates the information of a single item matching the given id : Edit
+        //Edits/updates the selected item//
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Service service)
+        public ActionResult Edit(Category category)
         {
-            if (ModelState.IsValid)
+            if (category == null)
             {
-                //db.Entry(product).State = EntityState.Modified;
-                //db.SaveChanges();
-                _sr.AddRange(service);
-                return RedirectToAction("Index");
+                return NotFound();
             }
-            else
-            {
-                return View(service);
-                Dispose();
-            }
+            _cr.Update(category);
+            return RedirectToAction("Index");
         }
 
-        */
 
 
 
 
 
 
-        //CREATE
 
-        // GET: returns blank view : Get None
+        //CREATE//
+        //Returns a blank view and prompts the user for input//
         public ActionResult Create()
         {
             return View();
         }
-
-
-        // POST: executes Add command, thus adding an item to the database : Add
+        //Creates a new item based on user input, ID is self-generated//
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
             if (category != null)
             {
-                category.CategoryId = Guid.NewGuid();   
+                category.CategoryId = Guid.NewGuid();
                 _cr.Add(category);
-
-                //return CreatedAtAction("Index", service);
                 return RedirectToAction("Index");
             }
             else
@@ -166,9 +149,8 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //DISPOSE
-
-
+        //DISPOSE//
+        //Dispose method to free up memory if data in memory is unused//
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

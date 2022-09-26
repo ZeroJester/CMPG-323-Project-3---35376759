@@ -22,25 +22,24 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
 
-        //GET
 
-        // GET: retrieve all items in a table format : Get All
-        public IActionResult Index()
+
+
+        //GET//
+        //Returns all of the items in this section/category//
+        public ActionResult Index()
         {
             //return View(db.Products.ToList());
             return View(_dr.GetAll());
         }
-
-        // GET: show one item in a singular item format : Get By ID
-        //[Route("devices/{id}")]
+        //Returns a specific item in the section/category//
         [HttpGet]
-        public IActionResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            // Product product = db.Products.Find(id);
             Device device = _dr.GetById(id);
             if (device == null)
             {
@@ -50,32 +49,34 @@ namespace DeviceManagement_WebApp.Controllers
             {
                 Dispose();
                 return View(device);
-               
             }
         }
 
 
 
+
+
+
+        //DELETE//
+        //Returns a view of the selected item to be deleted//
         public ActionResult Delete()
         {
             return View();
         }
-
-        // DELETE: delete item base on item id given : Remove
+        //Deletes the selected item//
         [HttpPost]
         public ActionResult Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
-                return RedirectToAction("Index");
             }
-            Device devices = _dr.GetById(id);
-            if (devices == null)
+            Device device = _dr.GetById(id);
+            if (device == null)
             {
                 return NotFound();
             }
-            _dr.Remove(devices);
+            _dr.Remove(device);
             return RedirectToAction("Index");
         }
 
@@ -84,47 +85,34 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        /* //EDIT
 
-         // GET: retrieves a single item base on the item id given : Get By ID
-         public ActionResult Edit(Guid id)
-         {
-             if (id == null)
-             {
-                 return NotFound();
-                 //return View(service);
-             }
-             Service service = _sr.GetById(id);
-             if (service == null)
-             {
-                 return NotFound();
-             }
-             else
-             {
-                 return View(service);
-                 Dispose();
-             }
-         }
-
-         // POST: edits/updates the information of a single item matching the given id : Edit
-         [HttpPost]
-         [ValidateAntiForgeryToken]
-         public IActionResult Edit(Service service)
-         {
-             if (ModelState.IsValid)
-             {
-                 //db.Entry(product).State = EntityState.Modified;
-                 //db.SaveChanges();
-                 _sr.AddRange(service);
-                 return RedirectToAction("Index");
-             }
-             else
-             {
-                 return View(service);
-                 Dispose();
-             }
-         }
-        */
+        //EDIT//
+        //Returns a view of the selected item with its values to be edited//
+        public ActionResult Edit(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Device device = _dr.GetById(id);
+            if (device == null)
+            {
+                return NotFound();
+            }
+            return View(device);
+        }
+        //Edits/updates the selected item//
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Device device)
+        {
+            if (device == null)
+            {
+                return NotFound();
+            }
+            _dr.Update(device);
+            return RedirectToAction("Index");
+        }
 
 
 
@@ -132,27 +120,22 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //CREATE
 
-        // GET: returns blank view : Get None
+        //CREATE//
+        //Returns a blank view and prompts the user for input//
         public ActionResult Create()
         {
             return View();
         }
-
-
-        // POST: executes Add command, thus adding an item to the database : Add
+        //Creates a new item based on user input, ID is self-generated//
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Device device)
         {
             if (device != null)
             {
-                device.CategoryId = Guid.Empty;
-                device.ZoneId = Guid.Empty;
+                device.DeviceId = Guid.NewGuid();
                 _dr.Add(device);
-
-                //return CreatedAtAction("Index", service);
                 return RedirectToAction("Index");
             }
             else
@@ -167,9 +150,8 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //DISPOSE
-
-
+        //DISPOSE//
+        //Dispose method to free up memory if data in memory is unused//
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
