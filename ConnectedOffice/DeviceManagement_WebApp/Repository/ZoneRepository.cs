@@ -1,4 +1,6 @@
-﻿using DeviceManagement_WebApp.Data;
+﻿//Marcel Joubert - 35376759//
+
+using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 
 

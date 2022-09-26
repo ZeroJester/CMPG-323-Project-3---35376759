@@ -1,4 +1,6 @@
-﻿using DeviceManagement_WebApp.Data;
+﻿//Marcel Joubert - 35376759//
+
+using DeviceManagement_WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,7 +21,7 @@ namespace DeviceManagement_WebApp.Repository
         }
 
 
-        //implementation for the generic Add method//
+        //Implementation for the generic Create method//
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
@@ -27,7 +29,7 @@ namespace DeviceManagement_WebApp.Repository
         }
 
 
-        //implementation for the generic AddRange method//
+        //Implementation for the generic AddRange method//
         public void AddRange(IEnumerable<T> entities)
         {
             _context.Set<T>().AddRange(entities);
@@ -36,7 +38,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for the generic Find method//
+        //Implementation for the generic Find method//
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
@@ -44,7 +46,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for the generic GetAll method//
+        //Implementation for the generic Index method//
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();
@@ -52,7 +54,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for the generic GetById method//
+        //Implementation for the generic Details method//
         public T GetById(Guid id)
         {
             return _context.Set<T>().Find(id);
@@ -60,7 +62,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for the Remove method//
+        //Implementation for the Delete method//
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
@@ -69,7 +71,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for the RemoveRange  method//
+        //Implementation for the RemoveRange  method//
         public void RemoveRange(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
@@ -78,7 +80,7 @@ namespace DeviceManagement_WebApp.Repository
 
 
 
-        //implementation for Edit method//
+        //Implementation for Edit method//
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
