@@ -4,12 +4,17 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using DeviceManagement_WebApp.Models;
 using DeviceManagement_WebApp.Repository;
-
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class DevicesController : Controller
     {
+
+        private IZoneRepository _zr;
+        private ICategoryRepository _cr;
         private readonly IDeviceRepository _dr;
         public DevicesController(IDeviceRepository deviceRepository)
         {
@@ -19,9 +24,10 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-
         //GET METHOD//
         //Returns all of the items in this section/category//
+
+        [HttpGet]
         public ActionResult Index()
         {
             //return View(db.Products.ToList());
@@ -54,6 +60,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         //DELETE METHOD//
         //Returns a view of the selected item to be deleted//
+        [HttpGet]
         public ActionResult Delete()
         {
             return View();
@@ -83,6 +90,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         //EDIT METHOD//
         //Returns a view of the selected item with its values to be edited//
+        [HttpGet]
         public ActionResult Edit(Guid id)
         {
             if (id == null)
@@ -118,10 +126,16 @@ namespace DeviceManagement_WebApp.Controllers
 
         //CREATE METHOD//
         //Returns a blank view and prompts the user for input//
-        public ActionResult Create()
+        //[HttpGet]
+       /* public ActionResult Create()
         {
-            return View(_dr.GetAll());
-        }
+            if (ViewBag.Id == null)
+            {
+                ViewBag.Id = Guid.NewGuid();
+            }
+            var device = _dr.GetById(ViewBag.Id);
+            return View(device);
+        }*/
         //Creates a new item based on user input, ID is self-generated//
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,6 +143,8 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (device != null)
             {
+                device.ZoneId = Guid.NewGuid();
+                device.CategoryId = Guid.NewGuid();
                 device.DeviceId = Guid.NewGuid();
                 _dr.Add(device);
                 return RedirectToAction("Index");
