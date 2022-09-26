@@ -27,7 +27,7 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //GET METHODS//
+        //GET METHOD//
         //Returns all of the items in this section/category//
         public ActionResult Index()
         {
@@ -59,7 +59,7 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //DELETE METHODS//
+        //DELETE METHOD//
         //Returns a view of the selected item to be deleted//
         public ActionResult Delete()
         {
@@ -88,7 +88,7 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //EDIT METHODS//
+        //EDIT METHOD//
         //Returns a view of the selected item with its values to be edited//
         public ActionResult Edit(Guid id)
         {
@@ -123,7 +123,7 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //CREATE METHODS//
+        //CREATE METHOD//
         //Returns a blank view and prompts the user for input//
         public ActionResult Create()
         {
@@ -152,7 +152,7 @@ namespace DeviceManagement_WebApp.Controllers
 
 
 
-        //DISPOSE METHODS//
+        //DISPOSE METHOD//
         //Dispose method to free up memory if data in memory is unused//
         protected override void Dispose(bool disposing)
         {
