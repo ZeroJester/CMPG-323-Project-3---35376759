@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -86,12 +87,19 @@ namespace DeviceManagement_WebApp.Controllers
         [HttpPost]
         public ActionResult Delete(Device device)
         {
-            if (device == null)
+            try
             {
-                return NotFound();
+                if (device == null)
+                {
+                    return NotFound();
+                }
+                _dr.Remove(device);
+                return RedirectToAction("Index");
             }
-            _dr.Remove(device);
-            return RedirectToAction("Index");
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
 
 
@@ -123,12 +131,19 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Device device)
         {
-            if (device == null)
+            try
             {
-                return NotFound();
+                if (device == null)
+                {
+                    return NotFound();
+                }
+                _dr.Update(device);
+                return RedirectToAction("Index");
             }
-            _dr.Update(device);
-            return RedirectToAction("Index");
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
 
 
@@ -153,18 +168,24 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Device device)
         {
-            if (device != null)
+            try
             {
-                device.DeviceId = Guid.NewGuid();
-                _dr.Add(device);
-                return RedirectToAction("Index");
+                if (device != null)
+                {
+                    device.DeviceId = Guid.NewGuid();
+                    _dr.Add(device);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Dispose();
+                    return View(device);
+                }
             }
-            else
+            catch (DbUpdateConcurrencyException)
             {
-                Dispose();
-                return View(device);
+                throw;
             }
-
         }
 
 

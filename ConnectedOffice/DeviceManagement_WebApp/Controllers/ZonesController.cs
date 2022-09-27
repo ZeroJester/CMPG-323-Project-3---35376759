@@ -4,6 +4,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using DeviceManagement_WebApp.Models;
 using DeviceManagement_WebApp.Repository;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace DeviceManagement_WebApp.Controllers
@@ -63,17 +64,24 @@ namespace DeviceManagement_WebApp.Controllers
         [HttpPost]
         public ActionResult Delete(Guid id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                Zone zones = _zr.GetById(id);
+                if (zones == null)
+                {
+                    return NotFound();
+                }
+                _zr.Remove(zones);
+                return RedirectToAction("Index");
             }
-            Zone zones = _zr.GetById(id);
-            if (zones == null)
+            catch (DbUpdateConcurrencyException)
             {
-                return NotFound();
+                throw;
             }
-            _zr.Remove(zones);
-            return RedirectToAction("Index");
         }
 
 
@@ -102,12 +110,19 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Zone zone)
         {
-            if (zone == null)
+            try
             {
-                return NotFound();
+                if (zone == null)
+                {
+                    return NotFound();
+                }
+                _zr.Update(zone);
+                return RedirectToAction("Index");
             }
-            _zr.Update(zone);
-            return RedirectToAction("Index");
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
 
 
@@ -128,18 +143,24 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Zone zones)
         {
-            if (zones!=null)
+            try
             {
-                zones.ZoneId = Guid.NewGuid();  
-                _zr.Add(zones);
-                return RedirectToAction("Index");
+                if (zones != null)
+                {
+                    zones.ZoneId = Guid.NewGuid();
+                    _zr.Add(zones);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Dispose();
+                    return View(zones);
+                }
             }
-            else
+            catch (DbUpdateConcurrencyException)
             {
-                Dispose();
-                return View(zones);
+                throw;
             }
-
         }
 
 

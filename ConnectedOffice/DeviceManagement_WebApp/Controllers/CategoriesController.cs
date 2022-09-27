@@ -4,6 +4,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using DeviceManagement_WebApp.Models;
 using DeviceManagement_WebApp.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -62,17 +63,24 @@ namespace DeviceManagement_WebApp.Controllers
         [HttpPost]
         public ActionResult Delete(Guid id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                Category category = _cr.GetById(id);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                _cr.Remove(category);
+                return RedirectToAction("Index");
             }
-            Category category = _cr.GetById(id);
-            if (category == null)
+            catch(DbUpdateConcurrencyException)
             {
-                return NotFound();
+                throw;
             }
-            _cr.Remove(category);
-            return RedirectToAction("Index");
         }
 
 
@@ -85,28 +93,35 @@ namespace DeviceManagement_WebApp.Controllers
         //Returns a view of the selected item with its values to be edited//
         public ActionResult Edit(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Category category = _cr.GetById(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                Category category = _cr.GetById(id);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                return View(category);
         }
         //Edits/updates the selected item//
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category category)
         {
-            if (category == null)
+            try
             {
-                return NotFound();
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                _cr.Update(category);
+                return RedirectToAction("Index");
             }
-            _cr.Update(category);
-            return RedirectToAction("Index");
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
 
 
@@ -127,18 +142,24 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
-            if (category != null)
+            try
             {
-                category.CategoryId = Guid.NewGuid();
-                _cr.Add(category);
-                return RedirectToAction("Index");
+                if (category != null)
+                {
+                    category.CategoryId = Guid.NewGuid();
+                    _cr.Add(category);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Dispose();
+                    return View(category);
+                }
             }
-            else
+            catch (DbUpdateConcurrencyException)
             {
-                Dispose();
-                return View(category);
+                throw;
             }
-
         }
 
 
