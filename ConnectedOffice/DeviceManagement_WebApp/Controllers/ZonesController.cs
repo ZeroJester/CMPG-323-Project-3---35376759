@@ -121,7 +121,7 @@ namespace DeviceManagement_WebApp.Controllers
         //Returns a blank view and prompts the user for input//
         public ActionResult Create()
         {
-            return (Return)
+            return View();
         }
         //Creates a new item based on user input, ID is self-generated//
         [HttpPost]

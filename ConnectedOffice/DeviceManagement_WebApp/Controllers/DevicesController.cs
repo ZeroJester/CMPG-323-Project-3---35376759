@@ -31,7 +31,7 @@ namespace DeviceManagement_WebApp.Controllers
         public ActionResult Index()
         {
             //return View(db.Products.ToList());
-            return View(_dr.GetAll());
+            return View(_dr.ReturnDevices());
         }
         //Returns a specific item in the section/category//
         [HttpGet]
@@ -129,6 +129,8 @@ namespace DeviceManagement_WebApp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewData["CategoryId"] = _dr.ReturnCategoryList();
+            ViewData["ZoneId"] = _dr.ReturnZoneList();
             return View();
         }
     

@@ -91,7 +91,7 @@ namespace DeviceManagement_WebApp.Repository
 
         public Object ReturnDevices()
         {
-            var data = _context.Device.Include(d => d.ZoneId).Include(d => d.CategoryId);
+            var data = _context.Device.Include(d => d.Zone).Include(d => d.Category);
             return data;
         }
 
