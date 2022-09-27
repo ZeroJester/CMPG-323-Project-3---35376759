@@ -129,13 +129,9 @@ namespace DeviceManagement_WebApp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (ViewBag.Id == null)
-            {
-                ViewBag.Id = Guid.NewGuid();
-            }
-            var device = _dr.GetById(ViewBag.Id);
-            return View(device);
+            return View();
         }
+    
         //Creates a new item based on user input, ID is self-generated//
         [HttpPost]
         [ValidateAntiForgeryToken]
