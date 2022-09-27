@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace DeviceManagement_WebApp.Repository
 {
+    //DeviceRepository inherits from GenericRepository and IDeviceRepository//
     public class DeviceRepository : GenericRepository<Device>, IDeviceRepository
     {
         private readonly ConnectedOfficeContext _context;

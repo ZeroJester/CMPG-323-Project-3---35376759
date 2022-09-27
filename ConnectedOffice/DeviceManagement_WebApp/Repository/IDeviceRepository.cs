@@ -8,6 +8,7 @@ using System;
 
 namespace DeviceManagement_WebApp.Repository
 {
+    //IDeviceRepository inherits from IGenericRepository//
     public interface IDeviceRepository : IGenericRepository<Device>
     {
         //Returns an object based on ZoneId and CategoryId//

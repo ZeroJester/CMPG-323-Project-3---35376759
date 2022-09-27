@@ -46,8 +46,6 @@ namespace DeviceManagement_WebApp.Repository
 
 
         //Edit a record//
-        void Update(T entity);
-       
+        void Update(T entity);  
     }
-
 }
