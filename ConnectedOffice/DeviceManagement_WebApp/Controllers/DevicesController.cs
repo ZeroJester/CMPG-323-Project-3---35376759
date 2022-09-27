@@ -126,8 +126,8 @@ namespace DeviceManagement_WebApp.Controllers
 
         //CREATE METHOD//
         //Returns a blank view and prompts the user for input//
-        //[HttpGet]
-       /* public ActionResult Create()
+        [HttpGet]
+        public ActionResult Create()
         {
             if (ViewBag.Id == null)
             {
@@ -135,7 +135,7 @@ namespace DeviceManagement_WebApp.Controllers
             }
             var device = _dr.GetById(ViewBag.Id);
             return View(device);
-        }*/
+        }
         //Creates a new item based on user input, ID is self-generated//
         [HttpPost]
         [ValidateAntiForgeryToken]
