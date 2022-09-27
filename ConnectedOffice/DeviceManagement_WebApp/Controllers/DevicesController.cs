@@ -35,7 +35,7 @@ namespace DeviceManagement_WebApp.Controllers
         [HttpGet]
         public ActionResult Details(Guid id)
         {
-            if (id == null)
+            if (id==null)
             {
                 return NotFound();
             }
@@ -46,6 +46,11 @@ namespace DeviceManagement_WebApp.Controllers
             }
             else
             {
+                Zone zone = _dr.ReturnZoneId(device.ZoneId);
+                Category category = _dr.ReturnCatId(device.CategoryId);
+                device.Zone = zone;
+                device.Category = category;
+
                 return View(device);
             }
         }
