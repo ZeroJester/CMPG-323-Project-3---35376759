@@ -7,14 +7,12 @@ using DeviceManagement_WebApp.Repository;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Linq;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class DevicesController : Controller
     {
-
-        private IZoneRepository _zr;
-        private ICategoryRepository _cr;
         private readonly IDeviceRepository _dr;
         public DevicesController(IDeviceRepository deviceRepository)
         {
@@ -42,14 +40,15 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
             Device device = _dr.GetById(id);
+            var catid = device.CategoryId;
             if (device == null)
             {
                 return NotFound();
             }
             else
             {
-                ViewData["Category"] = device.CategoryId.ToString();
-                ViewData["Zone"] = device.ZoneId.ToString();
+                ViewData["Category.CategoryName"] = catid;
+                ViewData["Zone.ZoneName"] = _dr.ReturnZoneList().SelectedValue;
                 return View(device);
             }
         }
@@ -62,21 +61,17 @@ namespace DeviceManagement_WebApp.Controllers
         //DELETE METHOD//
         //Returns a view of the selected item to be deleted//
         [HttpGet]
-        public IActionResult Delete()
+        public IActionResult Delete(Guid id)
         {
-            ViewData["CategoryName"] = _dr.ReturnCategoryList();
-            ViewData["ZoneName"] = _dr.ReturnZoneList();
-            return View();
+            Device device = _dr.GetById(id);
+            ViewData["Category.CategoryName"] = device.CategoryId;
+            ViewData["Zone.ZoneName"] = device.ZoneId;
+            return View(device);
         }
         //Deletes the selected item//
         [HttpPost]
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(Device device)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Device device = _dr.GetById(id);
             if (device == null)
             {
                 return NotFound();
