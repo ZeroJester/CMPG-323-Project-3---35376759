@@ -47,18 +47,6 @@ namespace DeviceManagement_WebApp.Repository
 
         //Edit a record//
         void Update(T entity);
-
-
-        //Returns an object based on ZoneId and CategoryId//
-        public Object ReturnDevices();
-
-
-        //Populates the device inputbox with a list of Zone ID's//
-        public SelectList ReturnZoneList();
-
-
-        //Populates the device inputbox with a list of Category ID's//
-        public SelectList ReturnCategoryList();
        
     }
 

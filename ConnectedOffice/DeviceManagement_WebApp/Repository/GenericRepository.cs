@@ -88,24 +88,5 @@ namespace DeviceManagement_WebApp.Repository
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
-
-        public Object ReturnDevices()
-        {
-            var data = _context.Device.Include(d => d.Zone).Include(d => d.Category);
-            return data;
-        }
-
-        public SelectList ReturnZoneList()
-        {
-            var data = new SelectList(_context.Zone, "ZoneId", "ZoneName");
-            return data;
-                
-        }
-
-        public SelectList ReturnCategoryList()
-        {
-            var data = new SelectList(_context.Category, "CategoryId", "CategoryName");
-            return data;
-        }
     }
 }
