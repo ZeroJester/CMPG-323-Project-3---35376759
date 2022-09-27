@@ -40,15 +40,12 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
             Device device = _dr.GetById(id);
-            var catid = device.CategoryId;
             if (device == null)
             {
                 return NotFound();
             }
             else
             {
-                ViewData["Category.CategoryName"] = catid;
-                ViewData["Zone.ZoneName"] = _dr.ReturnZoneList().SelectedValue;
                 return View(device);
             }
         }
@@ -61,12 +58,24 @@ namespace DeviceManagement_WebApp.Controllers
         //DELETE METHOD//
         //Returns a view of the selected item to be deleted//
         [HttpGet]
-        public IActionResult Delete(Guid id)
+        public ActionResult Delete(Guid id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             Device device = _dr.GetById(id);
-            ViewData["Category.CategoryName"] = device.CategoryId;
-            ViewData["Zone.ZoneName"] = device.ZoneId;
-            return View(device);
+            if (device == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ViewData["Category.CategoryName"] = device.CategoryId;
+                ViewData["Zone.ZoneName"] = device.ZoneId;
+                return View(device);
+            }
+           
         }
         //Deletes the selected item//
         [HttpPost]
