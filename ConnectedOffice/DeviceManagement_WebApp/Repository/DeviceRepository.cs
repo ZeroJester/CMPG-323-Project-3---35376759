@@ -5,6 +5,7 @@ using DeviceManagement_WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace DeviceManagement_WebApp.Repository
 {
@@ -24,14 +25,14 @@ namespace DeviceManagement_WebApp.Repository
 
         public SelectList ReturnZoneList()
         {
-            var data = new SelectList(_context.Zone, "ZoneId", "ZoneName");
+            var data = new SelectList(_context.Zone, "ZoneId", "ZoneId");
             return data;
 
         }
 
         public SelectList ReturnCategoryList()
         {
-            var data = new SelectList(_context.Category, "CategoryId", "CategoryName");
+            var data = new SelectList(_context.Category, "CategoryId", "CategoryId");
             return data;
         }
     }
