@@ -102,6 +102,8 @@ namespace DeviceManagement_WebApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = _dr.ReturnCategoryList();
+            ViewData["ZoneId"] = _dr.ReturnZoneList();
             return View(device);
         }
         //Edits/updates the selected item//
@@ -141,8 +143,6 @@ namespace DeviceManagement_WebApp.Controllers
         {
             if (device != null)
             {
-                device.ZoneId = Guid.NewGuid();
-                device.CategoryId = Guid.NewGuid();
                 device.DeviceId = Guid.NewGuid();
                 _dr.Add(device);
                 return RedirectToAction("Index");

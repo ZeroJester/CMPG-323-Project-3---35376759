@@ -10,26 +10,29 @@ namespace DeviceManagement_WebApp.Repository
 {
     public class DeviceRepository : GenericRepository<Device>, IDeviceRepository
     {
+        private readonly ConnectedOfficeContext _context;
         public DeviceRepository(ConnectedOfficeContext context) : base(context)
         {
-            public Object ReturnDevices()
-            {
-                var data = context.Device.Include(d => d.Zone).Include(d => d.Category);
-                return data;
-            }
+            _context = context;
+        }
 
-            public SelectList ReturnZoneList()
-            {
-                var data = new SelectList(context.Zone, "ZoneId", "ZoneName");
-                return data;
+        public Object ReturnDevices()
+        {
+            var data = _context.Device.Include(d => d.Category).Include(d => d.Zone);
+            return data;
+        }
 
-            }
+        public SelectList ReturnZoneList()
+        {
+            var data = new SelectList(_context.Zone, "ZoneId", "ZoneName");
+            return data;
 
-            public SelectList ReturnCategoryList()
-            {
-                var data = new SelectList(context.Category, "CategoryId", "CategoryName");
-                return data;
-            }
+        }
+
+        public SelectList ReturnCategoryList()
+        {
+            var data = new SelectList(_context.Category, "CategoryId", "CategoryName");
+            return data;
         }
     }
 }
