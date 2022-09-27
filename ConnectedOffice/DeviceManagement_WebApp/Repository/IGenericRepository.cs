@@ -1,5 +1,7 @@
 ﻿//Marcel Joubert - 35376759//
 
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -45,6 +47,19 @@ namespace DeviceManagement_WebApp.Repository
 
         //Edit a record//
         void Update(T entity);
+
+
+        //Returns an object based on ZoneId and CategoryId//
+        public Object returnDevices();
+
+
+        //Populates the device inputbox with a list of Zone ID's//
+        public SelectList returnZoneList();
+
+
+        //Populates the device inputbox with a list of Category ID's//
+        public SelectList returnCategoryList();
+       
     }
 
 }
