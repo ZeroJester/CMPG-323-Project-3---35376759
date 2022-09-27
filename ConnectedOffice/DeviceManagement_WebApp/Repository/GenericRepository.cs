@@ -1,6 +1,7 @@
 ﻿//Marcel Joubert - 35376759//
 
 using DeviceManagement_WebApp.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 namespace DeviceManagement_WebApp.Repository
@@ -85,6 +87,25 @@ namespace DeviceManagement_WebApp.Repository
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public Object returnDevices()
+        {
+            var data = _context.Device.Include(d => d.ZoneId).Include(d => d.CategoryId);
+            return data;
+        }
+
+        public SelectList returnZoneList()
+        {
+            var data = new SelectList(_context.Zone, "ZoneId", "ZoneName");
+            return data;
+                
+        }
+
+        public SelectList returnCategoryList()
+        {
+            var data = new SelectList(_context.Category, "CategoryId", "CategoryName");
+            return data;
         }
     }
 }
