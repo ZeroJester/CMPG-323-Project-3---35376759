@@ -50,15 +50,15 @@ namespace DeviceManagement_WebApp.Repository
 
 
         //Returns an object based on ZoneId and CategoryId//
-        public Object returnDevices();
+        public Object ReturnDevices();
 
 
         //Populates the device inputbox with a list of Zone ID's//
-        public SelectList returnZoneList();
+        public SelectList ReturnZoneList();
 
 
         //Populates the device inputbox with a list of Category ID's//
-        public SelectList returnCategoryList();
+        public SelectList ReturnCategoryList();
        
     }
 

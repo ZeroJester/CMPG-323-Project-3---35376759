@@ -89,20 +89,20 @@ namespace DeviceManagement_WebApp.Repository
             _context.SaveChanges();
         }
 
-        public Object returnDevices()
+        public Object ReturnDevices()
         {
             var data = _context.Device.Include(d => d.ZoneId).Include(d => d.CategoryId);
             return data;
         }
 
-        public SelectList returnZoneList()
+        public SelectList ReturnZoneList()
         {
             var data = new SelectList(_context.Zone, "ZoneId", "ZoneName");
             return data;
                 
         }
 
-        public SelectList returnCategoryList()
+        public SelectList ReturnCategoryList()
         {
             var data = new SelectList(_context.Category, "CategoryId", "CategoryName");
             return data;
