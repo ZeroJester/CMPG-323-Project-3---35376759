@@ -48,7 +48,8 @@ namespace DeviceManagement_WebApp.Controllers
             }
             else
             {
-                Dispose();
+                ViewData["Category"] = device.CategoryId.ToString();
+                ViewData["Zone"] = device.ZoneId.ToString();
                 return View(device);
             }
         }
@@ -61,8 +62,10 @@ namespace DeviceManagement_WebApp.Controllers
         //DELETE METHOD//
         //Returns a view of the selected item to be deleted//
         [HttpGet]
-        public ActionResult Delete()
+        public IActionResult Delete()
         {
+            ViewData["CategoryName"] = _dr.ReturnCategoryList();
+            ViewData["ZoneName"] = _dr.ReturnZoneList();
             return View();
         }
         //Deletes the selected item//
