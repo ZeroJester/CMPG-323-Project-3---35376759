@@ -35,5 +35,19 @@ namespace DeviceManagement_WebApp.Repository
             var data = new SelectList(_context.Category, "CategoryId", "CategoryId");
             return data;
         }
+
+
+        public Category ReturnCatId(Guid id)
+        {
+            Category categoryId = _context.Category.Find(id);
+            return categoryId;
+
+        }
+
+        public Zone ReturnZoneId(Guid id)
+        {
+            Zone zoneId = _context.Zone.Find(id);
+            return zoneId;
+        }
     }
 }
