@@ -48,3 +48,5 @@ This project is focussed on the development of an WebApp (interface) for users t
 
 #### Important Information
 After trying to push from the development branch to the main branch for the first time, the branches collided and caused irreversible damage to the development branch. I tried to add another development branch (dev2), but the same event occurred. I succesfully merged the code from the development branch to the main branch, and then continued to commit to the main branch only. Please see the initial commit for the development branch, as it will differ from the initial commit of the main branch in which the current project is contained. I did contact prof Jacqui with screenshots as evidence. 
+
+My reference list is in the initial folder as "P3-REFERENCE.docx" on GitHub.
