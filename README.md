@@ -1,4 +1,9 @@
 # CMPG-323-Project-3---35376759
+
+## Details for testing purposes
+Username: admin@gmail.com
+Password: Admin@123
+
 ## How to register?
 1. Go to the following link: https://devicemanagementwebapp35376759.azurewebsites.net/
 2. Click on Register
