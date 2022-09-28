@@ -1,6 +1,7 @@
 ﻿//Marcel Joubert - 35376759//
 
 using DeviceManagement_WebApp.Data;
+using DeviceManagement_WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -39,13 +40,11 @@ namespace DeviceManagement_WebApp.Repository
         }
 
 
-
         //Implementation for the generic Find method//
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
         }
-
 
 
         //Implementation for the generic Index method//
@@ -55,13 +54,11 @@ namespace DeviceManagement_WebApp.Repository
         }
 
 
-
         //Implementation for the generic Details method//
         public T GetById(Guid id)
         {
             return _context.Set<T>().Find(id);
         }
-
 
 
         //Implementation for the Delete method//
@@ -72,7 +69,6 @@ namespace DeviceManagement_WebApp.Repository
         }
 
 
-
         //Implementation for the RemoveRange  method//
         public void RemoveRange(IEnumerable<T> entities)
         {
@@ -81,12 +77,53 @@ namespace DeviceManagement_WebApp.Repository
         }
 
 
-
         //Implementation for Edit method//
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+
+        //Return a selected device with its correlated device ID and category ID//
+        public Object ReturnDevices()
+        {
+            var data = _context.Device.Include(d => d.Category).Include(d => d.Zone);
+            return data;
+        }
+
+
+        //Return a list of all zone IDs//
+        public SelectList ReturnZoneList()
+        {
+            var data = new SelectList(_context.Zone, "ZoneId", "ZoneId");
+            return data;
+
+        }
+
+
+        //Return a list of all category IDs
+        public SelectList ReturnCategoryList()
+        {
+            var data = new SelectList(_context.Category, "CategoryId", "CategoryId");
+            return data;
+        }
+
+
+        //Return the selected device's category ID//
+        public Category ReturnCatId(Guid id)
+        {
+            Category categoryId = _context.Category.Find(id);
+            return categoryId;
+
+        }
+
+
+        //Return the selected device's zone ID//
+        public Zone ReturnZoneId(Guid id)
+        {
+            Zone zoneId = _context.Zone.Find(id);
+            return zoneId;
         }
     }
 }
