@@ -1,7 +1,7 @@
 # CMPG-323-Project-3---35376759
 
 ## Details for testing purposes
-1. Username: admin@gmail.com
+1. Email: admin@gmail.com
 2. Password: Admin@123
 
 ## How to register?
