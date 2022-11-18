@@ -1,5 +1,7 @@
 # CMPG-323-Project-3---35376759
 
+  ![P3](https://user-images.githubusercontent.com/85791779/202660597-ab06d6cd-c173-439d-91af-635e7e8f44ea.png)
+
 ## Details for testing purposes
 1. Email: admin@gmail.com
 2. Password: Admin@123
